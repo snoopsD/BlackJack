@@ -3,15 +3,17 @@ class Deck
   attr_accessor :cards
 
   def initialize
-    @value = [*(2..10), "J", "Q", "K", "A"]
-    @suits = ["+", "<3", "<>", "^"]
+    @value = %w[2 3 4 5 6 7 8 9 10 J Q K A]
+    @suits = %w[+ <3 <> ^]
+    @score = { "J" => 10, "Q" => 10, "K" => 10, "A" => 11 }
     @cards = []
   end
 
   def create_deck
     @value.each do |val|
       @suits.each do |suit|
-          @cards << [val, suit]
+        point = @score.key?(val) ? @score[val] : val.to_i
+          @cards << [val, suit, point]
       end
     end
   end
@@ -19,10 +21,4 @@ class Deck
   def give_cards(number)
     @cards.shuffle.shift(number)
   end
-
-  def show
-    print @cards
-  end
-
-
 end
