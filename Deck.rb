@@ -19,6 +19,6 @@ class Deck
   end
 
   def give_cards(number)
-    @cards.shuffle.shift(number)
+    @cards.shuffle.shift(number).flatten
   end
 end

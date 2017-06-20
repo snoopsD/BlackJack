@@ -3,10 +3,9 @@ class Player
   attr_accessor :name, :bank, :hold_cards
 
   START_BANK = 100
-  PICTURES = %w(Q K A)
 
   def initialize(name)
-    @name = name
+    @name = name.capitalize.chomp
     @bank = START_BANK
     @hold_cards = []
   end
@@ -20,13 +19,9 @@ class Player
   end
 
   def show_cards
-    @hold_cards.each do |value, suit|
-      puts "#{value} #{suit}"
+    @hold_cards.each do |value|
+      puts "#{value[0]} #{value[1]}"
     end
-  end
-
-  def pictures_array
-    PICTURES.each {|item| puts item}
   end
 
   def drop_cards
@@ -34,10 +29,17 @@ class Player
   end
 
   def amount_cards
+    @sum = 0
     @hold_cards.flatten.each.with_index(1) do |item, index|
-      @sum += item if (index %1 == 0)
+      @sum += item if (index %3 == 0)
     end
     print @sum
+  end
+
+  def check_ace
+    @hold_cards.flatten.each do |item|
+      @sum -= 10 if (item == 'A' && @sum >= 10)
+    end
   end
 
 end
