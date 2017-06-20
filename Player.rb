@@ -8,6 +8,7 @@ class Player
     @name = name
     @bank = START_BANK
     @hold_cards = []
+    @sum = 0
   end
 
   def bank_player
@@ -38,7 +39,7 @@ class Player
 
   def check_ace
     @hold_cards.flatten.each do |item|
-      @sum -= 10 if (item == 'A' && @sum >= 10)
+      @sum -= 10 if (item == 'A' && @sum >= 11)
     end
   end
 

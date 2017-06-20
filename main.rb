@@ -37,23 +37,37 @@ class Main
     puts "У дилера на руках ***"
   end
 
-  def user_choice
+  def actions
     puts "1. Пропустить ход"
     puts "2. Добавить карту"
     puts "3. Открыть карты"
+  end
+
+  def exec_actions(choose)
     case choose
-    when 1 dealer_choose
+    when 1
+      dealer_choose
+    when 2
+      player_choose
+    end
+  end
 
-
-
+  def open_cards
   end
 
   def dealer_choose
    puts "Ход перешел к дилеру."
    screenplay
-   @dealer.hold_cards << @deck.give_cards(1) if @dealer.amount_cards <= 10
-   puts "Дил"
-   user_choice
+   @dealer.hold_cards << @deck.give_cards(1) if (@dealer.amount_cards <= 10)
+   @dealer.check_ace
+  end
+
+  def player_choose
+    @player.hold_cards << @deck.give_cards(1)
+    @player.check_ace
+    @player.amount_cards
+    @player.show_cards
+    puts "Итого очков по итогу 3х карт: #{@player.amount_cards}"
   end
 
   def bet
@@ -63,7 +77,6 @@ class Main
 
   def turn_player
     @player.hold_cards << @deck.give_cards(2)
-    @player.show_cards
   end
 
   def turn_dealer
@@ -83,8 +96,10 @@ class Main
 end
 
 start = Main.new
+start.welcome
 loop do
-  start.welcome
   start.begin_play
-  start.user_choice
+  start.actions
+  choose = gets.chomp.to_i
+  start.exec_actions(choose)
 end
