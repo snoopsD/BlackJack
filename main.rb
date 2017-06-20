@@ -52,6 +52,7 @@ class Main
    puts "Ход перешел к дилеру."
    screenplay
    @dealer.hold_cards << @deck.give_cards(1) if @dealer.amount_cards <= 10
+   puts "Дил"
    user_choice
   end
 
