@@ -5,7 +5,7 @@ class Player
   START_BANK = 100
 
   def initialize(name)
-    @name = name.capitalize.chomp
+    @name = name
     @bank = START_BANK
     @hold_cards = []
   end
@@ -19,8 +19,8 @@ class Player
   end
 
   def show_cards
-    @hold_cards.each do |value|
-      puts "#{value[0]} #{value[1]}"
+    @hold_cards.flatten.each.with_index(1) do |item, index|
+      print  "#{item} " unless (index %3 == 0)
     end
   end
 
