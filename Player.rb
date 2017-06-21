@@ -16,6 +16,10 @@ class Player
     @bank
   end
 
+  def bank_player_win
+    @bank = @bank_win
+  end
+
   def bank_pull
     @bank -= 10
     @bank_win += 10
@@ -29,7 +33,7 @@ class Player
   end
 
   def drop_cards
-    @holds_cards.clear
+    @hold_cards.clear
   end
 
   def amount_cards
