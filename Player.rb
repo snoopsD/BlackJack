@@ -1,14 +1,15 @@
 class Player
 
-  attr_accessor :name, :bank, :hold_cards
+  attr_accessor :name, :bank, :hold_cards, :sum
 
   START_BANK = 100
 
   def initialize(name)
     @name = name
     @bank = START_BANK
+    @bank_win = 0
     @hold_cards = []
-    @sum = 0
+    @sum = sum
   end
 
   def bank_player
@@ -17,12 +18,14 @@ class Player
 
   def bank_pull
     @bank -= 10
+    @bank_win += 10
   end
 
   def show_cards
     @hold_cards.flatten.each.with_index(1) do |item, index|
       print  "#{item} " unless (index %3 == 0)
     end
+    puts
   end
 
   def drop_cards
@@ -34,12 +37,18 @@ class Player
     @hold_cards.flatten.each.with_index(1) do |item, index|
       @sum += item if (index %3 == 0)
     end
-    print @sum
+    check_ace
+    @sum
   end
 
   def check_ace
-    @hold_cards.flatten.each do |item|
-      @sum -= 10 if (item == 'A' && @sum >= 11)
+    aces = @hold_cards.flatten.count {|ace| ace == "A"}
+    if aces > 2
+      @sum -= 20
+    elsif aces > 1
+      @sum -= 10
+    else
+      @sum
     end
   end
 
